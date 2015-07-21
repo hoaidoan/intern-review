@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="65dp"
+    >
+
+    <ImageView
+        android:id="@+id/imgAvatar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/imageview.margin_left"
+        android:background="@drawable/ic_avt1"/>
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/textview.text.text_size"
+        android:text="@string/textview.text.contact"
+        android:layout_toRightOf="@+id/imgAvatar"
+        android:layout_centerVertical="true"
+        android:textColor="@color/textview.text_color"
+        android:layout_marginLeft="@dimen/textview.margin_left"
+        />
+    <ImageView
+        android:id="@+id/imgDelete"
+        android:layout_width="@dimen/imageview.width"
+        android:layout_height="@dimen/imageview.height"
+        android:src="@android:drawable/ic_delete"
+        android:layout_alignParentRight="true"
+        android:scaleType="centerInside"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/imageview.margin_right"
+        />
+    <ImageView
+        android:id="@+id/imgEdit"
+        android:layout_width="@dimen/imageview.width"
+        android:layout_height="@dimen/imageview.height"
+        android:src="@android:drawable/ic_menu_manage"
+        android:layout_toLeftOf="@+id/imgDelete"
+        android:scaleType="centerInside"
+        android:layout_centerVertical="true"
+        />
+
+
+
+
+</RelativeLayout>

@@ -1,6 +1,9 @@
 <resources>
     <dimen name="textview.text.contact_text_size">24sp</dimen>
-    <dimen name="textview.text.text_size">14sp</dimen>
+    <dimen name="textview.text.text_size">16sp</dimen>
     <dimen name="imageview.margin_left">10dp</dimen>
     <dimen name="textview.margin_left">5dp</dimen>
+    <dimen name="imageview.height">40dp</dimen>
+    <dimen name="imageview.width">40dp</dimen>
+    <dimen name="imageview.margin_right">5dp</dimen>
 </resources>
