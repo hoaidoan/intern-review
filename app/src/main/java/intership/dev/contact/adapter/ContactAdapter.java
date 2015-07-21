@@ -1,12 +1,16 @@
 package intership.dev.contact.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -31,6 +35,7 @@ public class ContactAdapter extends BaseAdapter {
         this.mContacts = mContacts;
     }
 
+
     /**
      * create ViewHolder class
      */
@@ -48,7 +53,7 @@ public class ContactAdapter extends BaseAdapter {
      * @return convertView
      */
     @Override
-    public View getView(int position, View convertView, ViewGroup viewGroup) {
+    public View getView(final int position, View convertView, ViewGroup viewGroup) {
         ViewHolder holder = null;
         if (convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.item_list_contact, viewGroup, false);
@@ -63,6 +68,32 @@ public class ContactAdapter extends BaseAdapter {
         }
         holder.tvName.setText(mContacts.get(position).getName());
         holder.imgAvatar.setImageResource(mContacts.get(position).getAvatar());
+        /**
+         * Listener for imageView Delete
+         */
+        holder.imgDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setTitle("Delete")
+                        .setMessage(Html.fromHtml("Are you sure yout want to delete " + "<b>" + mContacts.get(position).getName() + "</b>" + " ?"))
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.dialog_confirm, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                mContacts.remove(position);
+                                notifyDataSetChanged();
+                            }
+                        })
+                        .setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+                builder.create().show();
+
+            }
+        });
         return convertView;
     }
 

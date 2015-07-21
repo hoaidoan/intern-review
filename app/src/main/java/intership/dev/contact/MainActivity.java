@@ -1,7 +1,6 @@
 package intership.dev.contact;
 
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,7 +33,7 @@ public class MainActivity extends Activity {
             ContactModel item = new ContactModel(NAME[i], DESCRIPTION[i], AVATAR[i]);
             mContacts.add(item);
         }
-        ContactAdapter mContactAdapter = new ContactAdapter(getApplicationContext(), mContacts);
+        ContactAdapter mContactAdapter = new ContactAdapter(MainActivity.this, mContacts);
         lvContact.setAdapter(mContactAdapter);
     }
 
