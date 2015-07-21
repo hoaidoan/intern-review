@@ -1,61 +1,92 @@
 package intership.dev.contact;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 
+
 import intership.dev.contact.adapter.ContactAdapter;
 import intership.dev.contact.model.ContactModel;
+import intership.dev.contact.widget.LoadMoreListView;
 
 
 public class MainActivity extends Activity {
-    public static final String[] NAME = new String[]{"Strawberry",
+    private String[] mNames = new String[]{"Strawberry",
             "Banana", "Orange", "Mixed", "Abbott", "Abraham", "Alvin", "Dalton", "Gale", "Halsey", "Isaac", "Philbert"};
-    public static final String[] DESCRIPTION = new String[]{
-            "a", "b", "c", "d", "e", "f", "g", "h", "i", "k", "l", "m"};
-    public static final Integer[] AVATAR = {R.drawable.ic_avt1,
+    private String[] mDescriptions = new String[]{
+            "Beckham", "Rooney", "Ronaldo", "Messi", "Robben", "Cassilas", "Suarez", "Zidane", "Figo", "Carlos", "Maria", "Idol"};
+    private int[] mAvatars = {R.drawable.ic_avt1,
             R.drawable.ic_avt2, R.drawable.ic_avt3, R.drawable.ic_avt4, R.drawable.ic_avt1,
             R.drawable.ic_avt2, R.drawable.ic_avt3, R.drawable.ic_avt4, R.drawable.ic_avt1,
             R.drawable.ic_avt2, R.drawable.ic_avt3, R.drawable.ic_avt4};
-    ListView lvContact;
-    ArrayList<ContactModel> mContacts = new ArrayList<>();
+    LoadMoreListView lvContact;
+    private ArrayList<ContactModel> mContacts = new ArrayList<>();
+    private ContactAdapter mContactAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        lvContact = (ListView) findViewById(R.id.lvContact);
-        for (int i = 0; i < NAME.length; i++) {
-            ContactModel item = new ContactModel(NAME[i], DESCRIPTION[i], AVATAR[i]);
+        lvContact = (LoadMoreListView) findViewById(R.id.lvContact);
+        for (int i = 0; i < mNames.length; i++) {
+            ContactModel item = new ContactModel(mNames[i], mDescriptions[i], mAvatars[i]);
             mContacts.add(item);
         }
-        ContactAdapter mContactAdapter = new ContactAdapter(MainActivity.this, mContacts);
+
+        mContactAdapter = new ContactAdapter(MainActivity.this, mContacts);
+
         lvContact.setAdapter(mContactAdapter);
+        lvContact.setOnLoadMoreListener(new LoadMoreListView.OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                new LoadDataTask().execute();
+            }
+        });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+    private class LoadDataTask extends AsyncTask<Void, Void, Void> {
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        @Override
+        protected Void doInBackground(Void... params) {
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+            if (isCancelled()) {
+                return null;
+            }
+
+            // Simulates a background task
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+            }
+
+            // add Loadmore Item
+            for (int i = 0; i < mNames.length; i++) {
+                ContactModel item = new ContactModel(mNames[i], mDescriptions[i], mAvatars[i]);
+                mContacts.add(item);
+            }
+
+            return null;
         }
 
-        return super.onOptionsItemSelected(item);
+        @Override
+        protected void onPostExecute(Void result) {
+
+            // We need notify the adapter that the data have been changed
+            mContactAdapter.notifyDataSetChanged();
+
+            // Call onLoadMoreComplete when the LoadMore task, has finished
+            ((LoadMoreListView) lvContact).onLoadMoreComplete();
+
+            super.onPostExecute(result);
+        }
+
+        @Override
+        protected void onCancelled() {
+            // Notify the loading more operation has finished
+            ((LoadMoreListView) lvContact).onLoadMoreComplete();
+        }
     }
+
 }
