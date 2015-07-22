@@ -1,5 +1,6 @@
 package intership.dev.contact.fragment;
 
+import android.content.res.TypedArray;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -22,16 +23,9 @@ import intership.dev.contact.widget.LoadMoreListView;
 
 /**
  * Created by hoai on 22/07/2015.
+ * Fragment ListView Contact to dis play listview on screen
  */
-public class ListContactFragment extends Fragment {
-    private String[] mNames = new String[]{"Strawberry",
-            "Banana", "Orange", "Mixed", "Abbott", "Abraham", "Alvin", "Dalton", "Gale", "Halsey", "Isaac", "Philbert"};
-    private String[] mDescriptions = new String[]{
-            "Beckham", "Rooney", "Ronaldo", "Messi", "Robben", "Cassilas", "Suarez", "Zidane", "Figo", "Carlos", "Maria", "Idol"};
-    private int[] mAvatars = {R.drawable.ic_avt1,
-            R.drawable.ic_avt2, R.drawable.ic_avt3, R.drawable.ic_avt4, R.drawable.ic_avt1,
-            R.drawable.ic_avt2, R.drawable.ic_avt3, R.drawable.ic_avt4, R.drawable.ic_avt1,
-            R.drawable.ic_avt2, R.drawable.ic_avt3, R.drawable.ic_avt4};
+public class ListContactFragment extends Fragment implements AdapterView.OnItemClickListener, LoadMoreListView.OnLoadMoreListener {
     LoadMoreListView lvContact;
     private ArrayList<ContactModel> mContacts = new ArrayList<>();
     private ContactAdapter mContactAdapter;
@@ -40,57 +34,57 @@ public class ListContactFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View mListContact = inflater.inflate(R.layout.fragment_list_contact, container, false);
-        lvContact = (LoadMoreListView) mListContact.findViewById(R.id.lvContact);
-        for (int i = 0; i < mNames.length; i++) {
-            ContactModel item = new ContactModel(mNames[i], mDescriptions[i], mAvatars[i]);
-            mContacts.add(item);
-        }
-
+        init(mListContact);
+        createDefaultData();
         mContactAdapter = new ContactAdapter(getActivity(), mContacts);
-
         lvContact.setAdapter(mContactAdapter);
-        lvContact = (LoadMoreListView) mListContact.findViewById(R.id.lvContact);
-        for (int i = 0; i < mNames.length; i++) {
-            ContactModel item = new ContactModel(mNames[i], mDescriptions[i], mAvatars[i]);
-            mContacts.add(item);
-        }
-        lvContact.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-
-                EditContactFragment frag = new EditContactFragment();
-                transaction.replace(getId(), frag);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
-
-        mContactAdapter = new ContactAdapter(getActivity(), mContacts);
-
-        lvContact.setAdapter(mContactAdapter);
-        lvContact.setOnLoadMoreListener(new LoadMoreListView.OnLoadMoreListener() {
-            @Override
-            public void onLoadMore() {
-                new LoadDataTask().execute();
-            }
-        });
-
-
+        lvContact.setOnLoadMoreListener(this);
+        lvContact.setOnItemClickListener(this);
         return mListContact;
 
     }
 
-    private class LoadDataTask extends AsyncTask<Void, Void, Void> {
 
+    // Listener for  onclick Item
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        EditContactFragment frag = new EditContactFragment();
+        transaction.replace(getId(), frag);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    // Init fo first load listview
+    public void init(View v) {
+        lvContact = (LoadMoreListView) v.findViewById(R.id.lvContact);
+    }
+
+    // Generate data from first load listview
+    public void createDefaultData() {
+        String[] mNames = getResources().getStringArray(R.array.list_name);
+        TypedArray mAvatars = getResources().obtainTypedArray(R.array.list_avatar);
+        String[] mDescriptions = getResources().getStringArray(R.array.list_description);
+        for (int i = 0; i < mNames.length; i++) {
+            ContactModel mModel = new ContactModel(mNames[i], mDescriptions[i], mAvatars.getResourceId(i, 0));
+            mContacts.add(mModel);
+        }
+    }
+
+    //  Load more lisview
+    @Override
+    public void onLoadMore() {
+        new LoadDataTask().execute();
+    }
+
+    //  Class Load new data when listview go to end row
+    private class LoadDataTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
-
             if (isCancelled()) {
                 return null;
             }
-
             // Simulates a background task
             try {
                 Thread.sleep(1000);
@@ -99,10 +93,7 @@ public class ListContactFragment extends Fragment {
             }
 
             // add Loadmore Item
-            for (int i = 0; i < mNames.length; i++) {
-                ContactModel item = new ContactModel(mNames[i], mDescriptions[i], mAvatars[i]);
-                mContacts.add(item);
-            }
+            createDefaultData();
 
             return null;
         }
@@ -114,7 +105,7 @@ public class ListContactFragment extends Fragment {
             mContactAdapter.notifyDataSetChanged();
 
             // Call onLoadMoreComplete when the LoadMore task, has finished
-            ((LoadMoreListView) lvContact).onLoadMoreComplete();
+            lvContact.onLoadMoreComplete();
 
             super.onPostExecute(result);
         }
@@ -122,7 +113,7 @@ public class ListContactFragment extends Fragment {
         @Override
         protected void onCancelled() {
             // Notify the loading more operation has finished
-            ((LoadMoreListView) lvContact).onLoadMoreComplete();
+            lvContact.onLoadMoreComplete();
         }
     }
 }

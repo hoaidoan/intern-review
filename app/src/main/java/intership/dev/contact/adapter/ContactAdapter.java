@@ -70,11 +70,9 @@ public class ContactAdapter extends BaseAdapter {
         /**
          * Listener for imageView Delete
          */
-        final ViewHolder finalHolder = holder;
         holder.imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finalHolder.imgDelete.setImageResource(R.drawable.ic_delete_on);
                 final Dialog mDialogDelete = new Dialog(mContext, R.style.CustomThemeDialog);
                 mDialogDelete.setContentView(R.layout.dialog_custom_delete);
                 TextView tvMessenger = (TextView) mDialogDelete.findViewById(R.id.tvMessenger);

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- array names-->
+    <string-array name="list_name">
+        <item>Strawberry</item>
+        <item>Banana</item>
+        <item>Orange</item>
+        <item>Mixed</item>
+        <item>Abbott</item>
+        <item>Abraham</item>
+        <item>Alvin</item>
+        <item>Dalton</item>
+        <item>Gale</item>
+        <item>Halsey</item>
+        <item>Isaac</item>
+        <item>Philbert</item>
+    </string-array>
+
+    <!-- array avatar-->
+    <string-array name="list_avatar">
+        <item>@drawable/ic_avt1</item>
+        <item>@drawable/ic_avt2</item>
+        <item>@drawable/ic_avt3</item>
+        <item>@drawable/ic_avt4</item>
+        <item>@drawable/ic_avt1</item>
+        <item>@drawable/ic_avt2</item>
+        <item>@drawable/ic_avt3</item>
+        <item>@drawable/ic_avt4</item>
+        <item>@drawable/ic_avt1</item>
+        <item>@drawable/ic_avt2</item>
+        <item>@drawable/ic_avt3</item>
+        <item>@drawable/ic_avt4</item>
+    </string-array>
+
+    <!-- array description-->
+    <string-array name="list_description">
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>10</item>
+        <item>100</item>
+        <item>101</item>
+    </string-array>
+
+</resources>
