@@ -47,7 +47,7 @@ public class ListContactFragment extends Fragment implements AdapterView.OnItemC
 
     // Listener for  onclick Item
     @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         EditContactFragment frag = new EditContactFragment();
