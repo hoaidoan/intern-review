@@ -1,11 +1,8 @@
 package intership.dev.contact.adapter;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.text.Html;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +10,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -80,7 +76,7 @@ public class ContactAdapter extends BaseAdapter {
             public void onClick(View view) {
                 finalHolder.imgDelete.setImageResource(R.drawable.ic_delete_on);
                 final Dialog mDialogDelete = new Dialog(mContext, R.style.CustomThemeDialog);
-                mDialogDelete.setContentView(R.layout.custom_dialog_delete);
+                mDialogDelete.setContentView(R.layout.dialog_custom_delete);
                 TextView tvMessenger = (TextView) mDialogDelete.findViewById(R.id.tvMessenger);
                 tvMessenger.setText(Html.fromHtml("Are you sure you want to edit " + "<b>" +
                         mContacts.get(position).getName() + "</b>" + "?"));

@@ -59,6 +59,7 @@ public class MainActivity extends Activity {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
+                e.printStackTrace();
             }
 
             // add Loadmore Item

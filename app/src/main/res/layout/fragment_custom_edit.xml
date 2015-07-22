@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rlActibar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title.contact.size"
+        android:background="@drawable/shape_title_contact">
+
+        <ImageView
+            android:id="@+id/imgBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="@dimen/imageview.margin_left"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/textview.text.contact"
+            android:textColor="@color/textview.text_color"
+            android:textSize="@dimen/textview.text.contact_text_size" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlUser"
+        android:layout_width="match_parent"
+        android:layout_height="126dp"
+        android:layout_below="@+id/rlActibar">
+
+        <ImageView
+            android:id="@+id/imgAvatar"
+            android:layout_width="@dimen/imageview.avatar.size"
+            android:layout_height="@dimen/imageview.avatar.size"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_avt3"
+            android:layout_marginLeft="@dimen/imageview.avarta.contact.margin_left" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="@dimen/textview.name.editcontact.margin_left"
+            android:layout_toRightOf="@+id/imgAvatar"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/textview.text.text_size" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/view.fragment_edit_contact" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlName"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/relativeLayout.username.height"
+        android:layout_below="@+id/rlUser">
+
+        <EditText
+            android:id="@+id/edtName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:paddingLeft="@dimen/imageview.avatar.contact.margin_left" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/view.fragment_edit_contact" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@id/rlName"
+        android:layout_marginTop="40dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/view.fragment_edit_contact" />
+
+        <EditText
+            android:id="@+id/edtDesc"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/imageview.avatar.contact.margin_left"
+            android:background="@android:color/transparent"
+            android:editable="false" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/view.fragment_edit_contact" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/lnButton"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/linearlayout.button.height"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:text="Save"
+            android:textAllCaps="false"
+            android:textColor="@color/button.save.background" />
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:text="Cancel"
+            android:textAllCaps="false"
+            android:textColor="@color/button.save.background" />
+
+    </LinearLayout>
+</RelativeLayout>

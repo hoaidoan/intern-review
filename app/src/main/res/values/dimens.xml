@@ -1,15 +1,27 @@
 <resources>
+    <!-- TextView dimension-->
     <dimen name="textview.text.contact_text_size">24sp</dimen>
     <dimen name="textview.text.text_size">16sp</dimen>
-    <dimen name="imageview.margin_left">10dp</dimen>
     <dimen name="textview.margin_left">5dp</dimen>
+    <!-- Imageview dimension-->
+    <dimen name="imageview.margin_left">10dp</dimen>
     <dimen name="imageview.height">40dp</dimen>
     <dimen name="imageview.width">40dp</dimen>
     <dimen name="imageview.margin_right">5dp</dimen>
+    <!-- custom dialog -->
     <dimen name="progressbar.padding">3dp</dimen>
     <dimen name="progressbar.width">36dp</dimen>
     <dimen name="progressbar.height">36dp</dimen>
     <dimen name="dialog.delete_layout_height">140dp</dimen>
     <dimen name="message.dialog_delete_margin">10dp</dimen>
     <dimen name="dialog.delete_button_layout_height">42dp</dimen>
+    <!-- custom fragment edit-->
+    <dimen name="title.contact.size">53dp</dimen>
+    <dimen name="textview.name.editcontact.margin_left">28dp</dimen>
+    <dimen name="relativeLayout.username.height">48dp</dimen>
+    <dimen name="imageview.avatar.contact.margin_left">20dp</dimen>
+    <dimen name="linearlayout.button.height">42dp</dimen>
+    <dimen name="imageview.avatar.size">96dp</dimen>
+    <dimen name="imageview.avarta.contact.margin_left">20dp</dimen>
+
 </resources>

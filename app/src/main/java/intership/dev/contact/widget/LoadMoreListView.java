@@ -64,7 +64,7 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
                 R.layout.custom_load_more_footer, this, false);
 
         mProgressBarLoadMore = (ProgressBar) mFooterView
-                .findViewById(R.id.load_more_progressBar);
+                .findViewById(R.id.progressBarLoadMore);
 
         addFooterView(mFooterView);
 
