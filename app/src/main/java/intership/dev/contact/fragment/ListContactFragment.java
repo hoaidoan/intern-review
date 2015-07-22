@@ -1,27 +1,29 @@
-package intership.dev.contact;
+package intership.dev.contact.fragment;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-
+import intership.dev.contact.R;
 import intership.dev.contact.adapter.ContactAdapter;
-import intership.dev.contact.fragment.EditContactFragment;
-import intership.dev.contact.fragment.ListContactFragment;
 import intership.dev.contact.model.ContactModel;
 import intership.dev.contact.widget.LoadMoreListView;
 
-
-public class MainActivity extends ActionBarActivity {
+/**
+ * Created by hoai on 22/07/2015.
+ */
+public class ListContactFragment extends Fragment {
     private String[] mNames = new String[]{"Strawberry",
             "Banana", "Orange", "Mixed", "Abbott", "Abraham", "Alvin", "Dalton", "Gale", "Halsey", "Isaac", "Philbert"};
     private String[] mDescriptions = new String[]{
@@ -33,24 +35,51 @@ public class MainActivity extends ActionBarActivity {
     LoadMoreListView lvContact;
     private ArrayList<ContactModel> mContacts = new ArrayList<>();
     private ContactAdapter mContactAdapter;
-    private LinearLayout llContainer;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        llContainer = (LinearLayout) findViewById(R.id.llContainer);
-        addContactsFragment();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View mListContact = inflater.inflate(R.layout.fragment_list_contact, container, false);
+        lvContact = (LoadMoreListView) mListContact.findViewById(R.id.lvContact);
+        for (int i = 0; i < mNames.length; i++) {
+            ContactModel item = new ContactModel(mNames[i], mDescriptions[i], mAvatars[i]);
+            mContacts.add(item);
+        }
 
-    }
+        mContactAdapter = new ContactAdapter(getActivity(), mContacts);
 
-    private void addContactsFragment() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        lvContact.setAdapter(mContactAdapter);
+        lvContact = (LoadMoreListView) mListContact.findViewById(R.id.lvContact);
+        for (int i = 0; i < mNames.length; i++) {
+            ContactModel item = new ContactModel(mNames[i], mDescriptions[i], mAvatars[i]);
+            mContacts.add(item);
+        }
+        lvContact.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        ListContactFragment frag = new ListContactFragment();
-        transaction.add(R.id.llContainer, frag);
-        transaction.commit();
+                EditContactFragment frag = new EditContactFragment();
+                transaction.replace(getId(), frag);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
+        mContactAdapter = new ContactAdapter(getActivity(), mContacts);
+
+        lvContact.setAdapter(mContactAdapter);
+        lvContact.setOnLoadMoreListener(new LoadMoreListView.OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                new LoadDataTask().execute();
+            }
+        });
+
+
+        return mListContact;
+
     }
 
     private class LoadDataTask extends AsyncTask<Void, Void, Void> {
@@ -96,6 +125,4 @@ public class MainActivity extends ActionBarActivity {
             ((LoadMoreListView) lvContact).onLoadMoreComplete();
         }
     }
-
-
 }

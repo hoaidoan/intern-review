@@ -3,34 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:background="@color/relativelayout.background_contacts">
-
-        <ImageView
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_centerVertical="true"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_back" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/textview.text.contact"
-            android:textSize="@dimen/textview.text.contact_text_size" />
-
-    </RelativeLayout>
-
-    <intership.dev.contact.widget.LoadMoreListView
-        android:id="@+id/lvContact"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </intership.dev.contact.widget.LoadMoreListView>
-
+    tools:context=".MainActivity"
+    android:id="@+id/llContainer">
 </LinearLayout>
