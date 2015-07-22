@@ -3,6 +3,7 @@ package intership.dev.contact.widget;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -24,12 +25,17 @@ public class DeleteDialog extends Dialog implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_custom_delete);
-        mMessage = (TextView) findViewById(R.id.tvName);
+        mMessage = (TextView) findViewById(R.id.tvMessenger);
         mBtnOK = (Button) findViewById(R.id.btnOk);
         mBtnCancel = (Button) findViewById(R.id.btnCancel);
         mBtnOK.setOnClickListener(this);
         mBtnCancel.setOnClickListener(this);
 
+
+    }
+
+    public String setDialogMessage(String name){
+        return name;
     }
 
     public int getPosition() {

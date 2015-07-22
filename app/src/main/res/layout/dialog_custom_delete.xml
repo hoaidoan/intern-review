@@ -15,7 +15,9 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_margin="@dimen/message.dialog_delete_margin"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+            android:text="Are you sure you want to delete ...?"
+            android:textSize="@dimen/textview.text.text_size"/>
 
     </LinearLayout>
 
