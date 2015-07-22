@@ -1,13 +1,16 @@
 package intership.dev.contact.adapter;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.text.Html;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -71,28 +74,35 @@ public class ContactAdapter extends BaseAdapter {
         /**
          * Listener for imageView Delete
          */
+        final ViewHolder finalHolder = holder;
         holder.imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setTitle("Delete")
-                        .setMessage(Html.fromHtml("Are you sure yout want to delete " + "<b>" + mContacts.get(position).getName() + "</b>" + " ?"))
-                        .setCancelable(false)
-                        .setPositiveButton(R.string.dialog_confirm, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                mContacts.remove(position);
-                                notifyDataSetChanged();
-                            }
-                        })
-                        .setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-
-                builder.create().show();
-
+                finalHolder.imgDelete.setImageResource(R.drawable.ic_delete_on);
+                final Dialog mDialogDelete = new Dialog(mContext, R.style.CustomThemeDialog);
+                mDialogDelete.setContentView(R.layout.custom_dialog_delete);
+                TextView tvMessenger = (TextView) mDialogDelete.findViewById(R.id.tvMessenger);
+                tvMessenger.setText(Html.fromHtml("Are you sure you want to edit " + "<b>" +
+                        mContacts.get(position).getName() + "</b>" + "?"));
+                Button btnOk = (Button) mDialogDelete.findViewById(R.id.btnOk);
+                btnOk.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mContacts.remove(position);
+                        notifyDataSetChanged();
+                        mDialogDelete.dismiss();
+                    }
+                });
+                Button btnCancel = (Button) mDialogDelete.findViewById(R.id.btnCancel);
+                btnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mDialogDelete.dismiss();
+                    }
+                });
+                mDialogDelete.show();
             }
+
         });
         return convertView;
     }

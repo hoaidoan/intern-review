@@ -3,6 +3,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="textview.text.contact">Contacts</string>
-    <string name="dialog_confirm">OK</string>
-    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog.button_ok">Ok</string>
+    <string name="dialog.button_cancel">Cancel</string>
+
 </resources>

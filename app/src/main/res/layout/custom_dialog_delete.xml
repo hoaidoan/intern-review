@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dialog.delete_layout_height">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/lnButton"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tvMessenger"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/message.dialog_delete_margin"
+            android:textColor="@android:color/black" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lnButton"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dialog.delete_button_layout_height"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnOk"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/shape_custom_dialog_delete"
+            android:text="@string/dialog.button_ok"
+            android:textAllCaps="false"
+            android:textColor="@android:color/black" />
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/shape_custom_dialog_delete"
+            android:text="@string/dialog.button_cancel"
+            android:textAllCaps="false"
+            android:textColor="@android:color/black" />
+
+    </LinearLayout>
+</RelativeLayout>
