@@ -1,14 +1,16 @@
 package intership.dev.contact.adapter;
 
-import android.app.Dialog;
-import android.content.Context;
+import android.app.Activity;
 import android.content.DialogInterface;
-import android.text.Html;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,27 +18,29 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import intership.dev.contact.R;
+import intership.dev.contact.fragment.EditContactFragment;
 import intership.dev.contact.model.ContactModel;
 import intership.dev.contact.widget.DeleteDialog;
 
 /**
  * Create Adapter for Listview Contacts
  */
-public class ContactAdapter extends BaseAdapter implements DeleteDialog.OnClickContactDialog, DialogInterface.OnDismissListener {
-    private Context mContext;
+public class ContactAdapter extends BaseAdapter implements DeleteDialog.OnClickContactDialog,
+        DialogInterface.OnDismissListener {
+    private FragmentActivity mActivity;
     private ArrayList<ContactModel> mContacts = new ArrayList<>();
     private DeleteDialog dialog;
 
     /**
      * Constructor
      *
-     * @param mContext
+     * @param mActivity
      * @param mContacts
      */
-    public ContactAdapter(Context mContext, ArrayList<ContactModel> mContacts) {
-        this.mContext = mContext;
+    public ContactAdapter(FragmentActivity mActivity, ArrayList<ContactModel> mContacts) {
+        this.mActivity = mActivity;
         this.mContacts = mContacts;
-        dialog = new DeleteDialog(mContext);
+        dialog = new DeleteDialog(mActivity);
         dialog.setOnClickListViewContactListener(this);
         dialog.setOnDismissListener(this);
 
@@ -80,7 +84,7 @@ public class ContactAdapter extends BaseAdapter implements DeleteDialog.OnClickC
     public View getView(final int position, View convertView, ViewGroup viewGroup) {
         ViewHolder holder = null;
         if (convertView == null) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_list_contact, viewGroup, false);
+            convertView = LayoutInflater.from(mActivity).inflate(R.layout.item_list_contact, viewGroup, false);
             holder = new ViewHolder();
             holder.tvName = (TextView) convertView.findViewById(R.id.tvName);
             holder.imgAvatar = (ImageView) convertView.findViewById(R.id.imgAvatar);
@@ -131,19 +135,19 @@ public class ContactAdapter extends BaseAdapter implements DeleteDialog.OnClickC
     }
 
     private void setEvent(final ViewHolder holder, final int position) {
-        ContactModel model = (ContactModel) getItem(position);
+        final ContactModel model = (ContactModel) getItem(position);
         holder.imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 dialog.setPosition(position);
                 dialog.show();
+                dialog.setDialogMessage(model);
             }
         });
         holder.imgEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "Updating", Toast.LENGTH_LONG).show();
+                Toast.makeText(mActivity, "Updating", Toast.LENGTH_LONG).show();
             }
         });
     }

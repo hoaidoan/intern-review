@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import intership.dev.contact.R;
+import intership.dev.contact.model.ContactModel;
 
 /**
  * Created by hoai on 23/07/2015.
@@ -19,6 +20,12 @@ public class DeleteDialog extends Dialog implements View.OnClickListener {
     private Button mBtnCancel;
     private int mPosition;
     private OnClickContactDialog mListener;
+
+
+    public DeleteDialog(Context context) {
+        super(context, R.style.CustomThemeDialog);
+    }
+
 
 
     @Override
@@ -34,8 +41,9 @@ public class DeleteDialog extends Dialog implements View.OnClickListener {
 
     }
 
-    public String setDialogMessage(String name){
-        return name;
+    public void setDialogMessage(ContactModel contactModel){
+        mMessage.setText(Html.fromHtml("Are you sure you want to edit " + "<b>" +
+                contactModel.getName() + "</b>" + "?"));
     }
 
     public int getPosition() {
@@ -46,9 +54,7 @@ public class DeleteDialog extends Dialog implements View.OnClickListener {
         this.mPosition = mPosition;
     }
 
-    public DeleteDialog(Context context) {
-        super(context, R.style.CustomThemeDialog);
-    }
+
 
     public void setOnClickListViewContactListener(OnClickContactDialog listener) {
         mListener = listener;

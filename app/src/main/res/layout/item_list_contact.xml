@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/textview.text.text_size"
-        android:text="@string/textview.text.contact"
+        android:text="@string/textview.text.contacts"
         android:layout_toRightOf="@+id/imgAvatar"
         android:layout_centerVertical="true"
         android:textColor="@color/textview.text_color"

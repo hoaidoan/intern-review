@@ -39,7 +39,7 @@ public class ListContactFragment extends Fragment implements AdapterView.OnItemC
         mContactAdapter = new ContactAdapter(getActivity(), mContacts);
         lvContact.setAdapter(mContactAdapter);
         lvContact.setOnLoadMoreListener(this);
-        lvContact.setOnItemClickListener(this);
+        //lvContact.setOnItemClickListener(this);
         return mListContact;
 
     }

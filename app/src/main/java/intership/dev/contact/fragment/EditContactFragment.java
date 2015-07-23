@@ -20,7 +20,7 @@ import intership.dev.contact.model.ContactModel;
 public class EditContactFragment extends Fragment implements View.OnClickListener {
     private ImageView imgAvatar;
     private TextView tvName;
-    private EditText edtDescription;
+    private EditText edtDescription,edtName;
     private Button btnSave, btnCancel;
     private OnChangeItemListener mListenerOnChange;
 
@@ -41,6 +41,7 @@ public class EditContactFragment extends Fragment implements View.OnClickListene
         edtDescription = (EditText) v.findViewById(R.id.edtDesc);
         btnSave = (Button) v.findViewById(R.id.btnSave);
         btnCancel = (Button) v.findViewById(R.id.btnCancel);
+        edtName = (EditText)v.findViewById(R.id.edtName);
 
         // give data from ListContactFragment
         Bundle dataBundle = this.getArguments();
@@ -59,7 +60,7 @@ public class EditContactFragment extends Fragment implements View.OnClickListene
         int id = view.getId();
         switch (id) {
             case R.id.btnSave:
-                mModel.setName(tvName.getText().toString());
+                mModel.setName(edtName.getText().toString());
                 mModel.setDescription(edtDescription.getText().toString());
                 mListenerOnChange.onChange(mModel, mPosition);
                 getActivity().onBackPressed();
