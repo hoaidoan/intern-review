@@ -1,19 +1,16 @@
 package intership.dev.contact.adapter;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -29,7 +26,7 @@ public class ContactAdapter extends BaseAdapter implements DeleteDialog.OnClickC
         DialogInterface.OnDismissListener, EditContactFragment.OnChangeItemListener {
     private FragmentActivity mActivity;
     private ArrayList<ContactModel> mContacts = new ArrayList<>();
-    private DeleteDialog dialog;
+    private DeleteDialog mDialog;
 
     // param use for method callEditContactFragment
     private FragmentManager mFragmentManager;
@@ -45,22 +42,22 @@ public class ContactAdapter extends BaseAdapter implements DeleteDialog.OnClickC
     public ContactAdapter(FragmentActivity mActivity, ArrayList<ContactModel> mContacts) {
         this.mActivity = mActivity;
         this.mContacts = mContacts;
-        dialog = new DeleteDialog(mActivity);
-        dialog.setOnClickListViewContactListener(this);
-        dialog.setOnDismissListener(this);
+        mDialog = new DeleteDialog(mActivity);
+        mDialog.setOnClickListViewContactListener(this);
+        mDialog.setOnDismissListener(this);
 
     }
 
     @Override
     public void onClickBtnOK(View v) {
-        mContacts.remove(dialog.getPosition());
+        mContacts.remove(mDialog.getPosition());
         notifyDataSetChanged();
-        dialog.dismiss();
+        mDialog.dismiss();
     }
 
     @Override
     public void onClickBtnCancel(View v) {
-        dialog.dismiss();
+        mDialog.dismiss();
     }
 
     @Override
@@ -77,7 +74,7 @@ public class ContactAdapter extends BaseAdapter implements DeleteDialog.OnClickC
     /**
      * create ViewHolder class to control convert view
      */
-    static class ViewHolder {
+    private static class ViewHolder {
         ImageView imgAvatar, imgDelete, imgEdit;
         TextView tvName;
         TextView tvDesc;
@@ -175,9 +172,9 @@ public class ContactAdapter extends BaseAdapter implements DeleteDialog.OnClickC
         holder.imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog.setPosition(position);
-                dialog.show();
-                dialog.setDialogMessage(model);
+                mDialog.setPosition(position);
+                mDialog.show();
+                mDialog.setDialogMessage(model);
             }
         });
         holder.imgEdit.setOnClickListener(new View.OnClickListener() {

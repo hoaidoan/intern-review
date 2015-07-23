@@ -34,7 +34,7 @@ public class EditContactFragment extends Fragment implements View.OnClickListene
         return mEditView;
     }
 
-    void init(View v) {
+    private void init(View v) {
         imgAvatar = (ImageView) v.findViewById(R.id.imgAvatar);
         tvName = (TextView) v.findViewById(R.id.tvName);
         edtDescription = (EditText) v.findViewById(R.id.edtDesc);

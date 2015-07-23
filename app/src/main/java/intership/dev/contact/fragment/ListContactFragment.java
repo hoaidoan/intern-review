@@ -26,7 +26,7 @@ import intership.dev.contact.widget.LoadMoreListView;
  * Fragment ListView Contact to dis play listview on screen
  */
 public class ListContactFragment extends Fragment implements LoadMoreListView.OnLoadMoreListener {
-    LoadMoreListView lvContact;
+    private LoadMoreListView lvContact;
     private ArrayList<ContactModel> mContacts = new ArrayList<>();
     private ContactAdapter mContactAdapter;
 
