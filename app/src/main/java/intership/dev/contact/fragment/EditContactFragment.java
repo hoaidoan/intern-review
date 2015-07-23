@@ -18,7 +18,7 @@ import intership.dev.contact.model.ContactModel;
  * display all information of listview item
  */
 public class EditContactFragment extends Fragment implements View.OnClickListener {
-    private ImageView imgAvatar;
+    private ImageView imgAvatar,imgBack;
     private TextView tvName;
     private EditText edtDescription, edtName;
     private Button btnSave, btnCancel;
@@ -41,6 +41,7 @@ public class EditContactFragment extends Fragment implements View.OnClickListene
         btnSave = (Button) v.findViewById(R.id.btnSave);
         btnCancel = (Button) v.findViewById(R.id.btnCancel);
         edtName = (EditText) v.findViewById(R.id.edtName);
+        imgBack= (ImageView)v.findViewById(R.id.imgBack);
 
         // give data from ListContactFragment
         Bundle dataBundle = this.getArguments();
@@ -50,6 +51,7 @@ public class EditContactFragment extends Fragment implements View.OnClickListene
         edtDescription.setText(mModel.getDescription());
         btnSave.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
+        imgBack.setOnClickListener(this);
 
     }
 
@@ -64,6 +66,8 @@ public class EditContactFragment extends Fragment implements View.OnClickListene
                 getActivity().onBackPressed();
                 break;
             case R.id.btnCancel:
+                getActivity().onBackPressed();
+            case R.id.imgBack:
                 getActivity().onBackPressed();
         }
     }

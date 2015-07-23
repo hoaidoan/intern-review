@@ -10,6 +10,7 @@
         android:background="@color/relativelayout.background_contacts">
 
         <ImageView
+            android:id="@+id/imgBack"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_centerVertical="true"
