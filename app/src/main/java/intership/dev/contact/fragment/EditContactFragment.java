@@ -20,13 +20,12 @@ import intership.dev.contact.model.ContactModel;
 public class EditContactFragment extends Fragment implements View.OnClickListener {
     private ImageView imgAvatar;
     private TextView tvName;
-    private EditText edtDescription,edtName;
+    private EditText edtDescription, edtName;
     private Button btnSave, btnCancel;
     private OnChangeItemListener mListenerOnChange;
 
     //using for method onClick
     private ContactModel mModel;
-    private int mPosition;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,12 +40,11 @@ public class EditContactFragment extends Fragment implements View.OnClickListene
         edtDescription = (EditText) v.findViewById(R.id.edtDesc);
         btnSave = (Button) v.findViewById(R.id.btnSave);
         btnCancel = (Button) v.findViewById(R.id.btnCancel);
-        edtName = (EditText)v.findViewById(R.id.edtName);
+        edtName = (EditText) v.findViewById(R.id.edtName);
 
         // give data from ListContactFragment
         Bundle dataBundle = this.getArguments();
         mModel = (ContactModel) dataBundle.getSerializable("dataBundle");
-        mPosition= dataBundle.getInt("position");
         tvName.setText(mModel.getName());
         imgAvatar.setImageResource(mModel.getAvatar());
         edtDescription.setText(mModel.getDescription());
@@ -62,7 +60,7 @@ public class EditContactFragment extends Fragment implements View.OnClickListene
             case R.id.btnSave:
                 mModel.setName(edtName.getText().toString());
                 mModel.setDescription(edtDescription.getText().toString());
-                mListenerOnChange.onChange(mModel, mPosition);
+                mListenerOnChange.onChange(mModel);
                 getActivity().onBackPressed();
                 break;
             case R.id.btnCancel:
@@ -72,7 +70,7 @@ public class EditContactFragment extends Fragment implements View.OnClickListene
 
     /**
      * Register a callback to be invoked when a changed user was given from
-         * EditContactFragment to ListContactFragment
+     * EditContactFragment to ListContactFragment
      *
      * @param listener The callback will run
      */
@@ -81,6 +79,6 @@ public class EditContactFragment extends Fragment implements View.OnClickListene
     }
 
     public interface OnChangeItemListener {
-        void onChange(ContactModel contactModelmodel, int position);
+        void onChange(ContactModel contactModelmodel);
     }
 }

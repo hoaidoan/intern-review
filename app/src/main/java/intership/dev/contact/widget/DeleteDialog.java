@@ -27,7 +27,6 @@ public class DeleteDialog extends Dialog implements View.OnClickListener {
     }
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +40,12 @@ public class DeleteDialog extends Dialog implements View.OnClickListener {
 
     }
 
-    public void setDialogMessage(ContactModel contactModel){
-        mMessage.setText(Html.fromHtml("Are you sure you want to edit " + "<b>" +
+    /**
+     * set message for dialog with Model name is bold
+     * @param contactModel
+     */
+    public void setDialogMessage(ContactModel contactModel) {
+        mMessage.setText(Html.fromHtml("Are you sure you want to delete " + "<b>" +
                 contactModel.getName() + "</b>" + "?"));
     }
 
@@ -53,7 +56,6 @@ public class DeleteDialog extends Dialog implements View.OnClickListener {
     public void setPosition(int mPosition) {
         this.mPosition = mPosition;
     }
-
 
 
     public void setOnClickListViewContactListener(OnClickContactDialog listener) {

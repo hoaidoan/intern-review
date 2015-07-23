@@ -25,7 +25,7 @@ import intership.dev.contact.widget.LoadMoreListView;
  * Created by hoai on 22/07/2015.
  * Fragment ListView Contact to dis play listview on screen
  */
-public class ListContactFragment extends Fragment implements AdapterView.OnItemClickListener, LoadMoreListView.OnLoadMoreListener, EditContactFragment.OnChangeItemListener {
+public class ListContactFragment extends Fragment implements LoadMoreListView.OnLoadMoreListener {
     LoadMoreListView lvContact;
     private ArrayList<ContactModel> mContacts = new ArrayList<>();
     private ContactAdapter mContactAdapter;
@@ -39,28 +39,8 @@ public class ListContactFragment extends Fragment implements AdapterView.OnItemC
         mContactAdapter = new ContactAdapter(getActivity(), mContacts);
         lvContact.setAdapter(mContactAdapter);
         lvContact.setOnLoadMoreListener(this);
-        //lvContact.setOnItemClickListener(this);
         return mListContact;
 
-    }
-
-
-    // Listener for  onclick Item
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        EditContactFragment frag = new EditContactFragment();
-
-        Bundle dataBundle = new Bundle();
-        dataBundle.putSerializable("dataBundle", mContacts.get(position));
-        dataBundle.putInt("position", position);
-        frag.setArguments(dataBundle);
-        frag.setOnChangeItemListener(this);
-
-        transaction.replace(getId(), frag);
-        transaction.addToBackStack(null);
-        transaction.commit();
     }
 
     // Init fo first load listview
@@ -83,15 +63,6 @@ public class ListContactFragment extends Fragment implements AdapterView.OnItemC
     @Override
     public void onLoadMore() {
         new LoadDataTask().execute();
-    }
-
-    // interface method for sending data to EditContactFragment
-    @Override
-    public void onChange(ContactModel contactModelmodel, int position) {
-        mContacts.get(position).setName(contactModelmodel.getName());
-        mContacts.get(position).setDescription(contactModelmodel.getDescription());
-        mContacts.get(position).setAvatar(contactModelmodel.getAvatar());
-        mContactAdapter.notifyDataSetChanged();
     }
 
 

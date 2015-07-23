@@ -26,10 +26,15 @@ import intership.dev.contact.widget.DeleteDialog;
  * Create Adapter for Listview Contacts
  */
 public class ContactAdapter extends BaseAdapter implements DeleteDialog.OnClickContactDialog,
-        DialogInterface.OnDismissListener {
+        DialogInterface.OnDismissListener, EditContactFragment.OnChangeItemListener {
     private FragmentActivity mActivity;
     private ArrayList<ContactModel> mContacts = new ArrayList<>();
     private DeleteDialog dialog;
+
+    // param use for method callEditContactFragment
+    private FragmentManager mFragmentManager;
+    private FragmentTransaction mFragmentTransaction;
+    private EditContactFragment mEditContactFragment;
 
     /**
      * Constructor
@@ -63,9 +68,14 @@ public class ContactAdapter extends BaseAdapter implements DeleteDialog.OnClickC
 
     }
 
+    @Override
+    public void onChange(ContactModel contactModelmodel) {
+        notifyDataSetChanged();
+    }
+
 
     /**
-     * create ViewHolder class
+     * create ViewHolder class to control convert view
      */
     static class ViewHolder {
         ImageView imgAvatar, imgDelete, imgEdit;
@@ -100,6 +110,27 @@ public class ContactAdapter extends BaseAdapter implements DeleteDialog.OnClickC
         return convertView;
     }
 
+
+    /**
+     * method intent to EditContactFragment
+     * @param contactModel is a object to refactor
+     */
+    private void callEditContactFragment(ContactModel contactModel) {
+        mFragmentManager = mActivity.getSupportFragmentManager();
+        mFragmentTransaction = mFragmentManager.beginTransaction();
+        if (mEditContactFragment == null) {
+            mEditContactFragment = new EditContactFragment();
+            mEditContactFragment.setOnChangeItemListener(this);
+        }
+        Bundle dataBundle = new Bundle();
+        dataBundle.putSerializable("dataBundle", contactModel);
+
+        mEditContactFragment.setArguments(dataBundle);
+        mFragmentTransaction.replace(R.id.llContainer, mEditContactFragment);
+        mFragmentTransaction.addToBackStack(null);
+        mFragmentTransaction.commit();
+    }
+
     /**
      * @return count of arrayList
      */
@@ -128,6 +159,11 @@ public class ContactAdapter extends BaseAdapter implements DeleteDialog.OnClickC
         return 0;
     }
 
+    /**
+     * set value for view holder
+     * @param holder  is current convert view
+     * @param position is a current possition Listview
+     */
     private void setValue(ViewHolder holder, int position) {
         ContactModel model = (ContactModel) getItem(position);
         holder.tvName.setText(model.getName());
@@ -147,8 +183,10 @@ public class ContactAdapter extends BaseAdapter implements DeleteDialog.OnClickC
         holder.imgEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mActivity, "Updating", Toast.LENGTH_LONG).show();
+                callEditContactFragment(model);
             }
         });
     }
+
+
 }
