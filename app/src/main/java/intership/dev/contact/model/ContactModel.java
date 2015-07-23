@@ -1,10 +1,12 @@
 package intership.dev.contact.model;
 
+import java.io.Serializable;
+
 /**
  * Created Constructor
  * Generate method Set and Get for variable
  */
-public class ContactModel {
+public class ContactModel implements Serializable {
     private String mName;
     private String mDescription;
     private int mAvatar;

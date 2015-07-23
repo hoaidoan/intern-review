@@ -25,7 +25,7 @@ import intership.dev.contact.widget.LoadMoreListView;
  * Created by hoai on 22/07/2015.
  * Fragment ListView Contact to dis play listview on screen
  */
-public class ListContactFragment extends Fragment implements AdapterView.OnItemClickListener, LoadMoreListView.OnLoadMoreListener {
+public class ListContactFragment extends Fragment implements AdapterView.OnItemClickListener, LoadMoreListView.OnLoadMoreListener, EditContactFragment.OnChangeItemListener {
     LoadMoreListView lvContact;
     private ArrayList<ContactModel> mContacts = new ArrayList<>();
     private ContactAdapter mContactAdapter;
@@ -51,6 +51,13 @@ public class ListContactFragment extends Fragment implements AdapterView.OnItemC
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         EditContactFragment frag = new EditContactFragment();
+
+        Bundle dataBundle = new Bundle();
+        dataBundle.putSerializable("dataBundle", mContacts.get(position));
+        dataBundle.putInt("position", position);
+        frag.setArguments(dataBundle);
+        frag.setOnChangeItemListener(this);
+
         transaction.replace(getId(), frag);
         transaction.addToBackStack(null);
         transaction.commit();
@@ -77,6 +84,16 @@ public class ListContactFragment extends Fragment implements AdapterView.OnItemC
     public void onLoadMore() {
         new LoadDataTask().execute();
     }
+
+    // interface method for sending data to EditContactFragment
+    @Override
+    public void onChange(ContactModel contactModelmodel, int position) {
+        mContacts.get(position).setName(contactModelmodel.getName());
+        mContacts.get(position).setDescription(contactModelmodel.getDescription());
+        mContacts.get(position).setAvatar(contactModelmodel.getAvatar());
+        mContactAdapter.notifyDataSetChanged();
+    }
+
 
     //  Class Load new data when listview go to end row
     private class LoadDataTask extends AsyncTask<Void, Void, Void> {

@@ -10,6 +10,9 @@ import android.widget.LinearLayout;
 import intership.dev.contact.fragment.ListContactFragment;
 
 
+/**
+ * the class is dislay fragment ListContactFragment
+ */
 public class MainActivity extends ActionBarActivity {
     private LinearLayout llContainer;
 

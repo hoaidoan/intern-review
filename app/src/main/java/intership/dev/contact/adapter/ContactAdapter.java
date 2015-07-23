@@ -92,39 +92,7 @@ public class ContactAdapter extends BaseAdapter implements DeleteDialog.OnClickC
         }
         setValue(holder, position);
         setEvent(holder, position);
-        //       holder.tvName.setText(mContacts.get(position).getName());
-        //       holder.imgAvatar.setImageResource(mContacts.get(position).getAvatar());
-//        /**
-//         * Listener for imageView Delete
-//         */
-//        holder.imgDelete.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                final Dialog mDialogDelete = new Dialog(mContext, R.style.CustomThemeDialog);
-//                mDialogDelete.setContentView(R.layout.dialog_custom_delete);
-//                TextView tvMessenger = (TextView) mDialogDelete.findViewById(R.id.tvMessenger);
-//                tvMessenger.setText(Html.fromHtml("Are you sure you want to edit " + "<b>" +
-//                        mContacts.get(position).getName() + "</b>" + "?"));
-//                Button btnOk = (Button) mDialogDelete.findViewById(R.id.btnOk);
-//                btnOk.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        mContacts.remove(position);
-//                        notifyDataSetChanged();
-//                        mDialogDelete.dismiss();
-//                    }
-//                });
-//                Button btnCancel = (Button) mDialogDelete.findViewById(R.id.btnCancel);
-//                btnCancel.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        mDialogDelete.dismiss();
-//                    }
-//                });
-//                mDialogDelete.show();
-//            }
-//
-//        });
+
         return convertView;
     }
 
