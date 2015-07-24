@@ -18,13 +18,11 @@ import intership.dev.contact.model.ContactModel;
  * display all information of listview item
  */
 public class EditContactFragment extends Fragment implements View.OnClickListener {
-    private ImageView imgAvatar,imgBack;
+    private ImageView imgAvatar, imgBack;
     private TextView tvName;
     private EditText edtDescription, edtName;
     private Button btnSave, btnCancel;
     private OnChangeItemListener mListenerOnChange;
-
-    //using for method onClick
     private ContactModel mModel;
 
     @Override
@@ -41,7 +39,7 @@ public class EditContactFragment extends Fragment implements View.OnClickListene
         btnSave = (Button) v.findViewById(R.id.btnSave);
         btnCancel = (Button) v.findViewById(R.id.btnCancel);
         edtName = (EditText) v.findViewById(R.id.edtName);
-        imgBack= (ImageView)v.findViewById(R.id.imgBack);
+        imgBack = (ImageView) v.findViewById(R.id.imgBack);
 
         // give data from ListContactFragment
         Bundle dataBundle = this.getArguments();
@@ -55,23 +53,6 @@ public class EditContactFragment extends Fragment implements View.OnClickListene
 
     }
 
-    @Override
-    public void onClick(View view) {
-        int id = view.getId();
-        switch (id) {
-            case R.id.btnSave:
-                mModel.setName(edtName.getText().toString());
-                mModel.setDescription(edtDescription.getText().toString());
-                mListenerOnChange.onChange(mModel);
-                getActivity().onBackPressed();
-                break;
-            case R.id.btnCancel:
-                getActivity().onBackPressed();
-            case R.id.imgBack:
-                getActivity().onBackPressed();
-        }
-    }
-
     /**
      * Register a callback to be invoked when a changed user was given from
      * EditContactFragment to ListContactFragment
@@ -82,7 +63,26 @@ public class EditContactFragment extends Fragment implements View.OnClickListene
         mListenerOnChange = listener;
     }
 
+    // Ober ride method OnClickListener
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id) {
+            case R.id.btnSave:
+                mModel.setName(edtName.getText().toString());
+                mModel.setDescription(edtDescription.getText().toString());
+                mListenerOnChange.onChange();
+                getActivity().onBackPressed();
+                break;
+            case R.id.btnCancel:
+                getActivity().onBackPressed();
+            case R.id.imgBack:
+                getActivity().onBackPressed();
+        }
+    }
+
     public interface OnChangeItemListener {
-        void onChange(ContactModel contactModelmodel);
+        // call when using btnSave
+        void onChange();
     }
 }

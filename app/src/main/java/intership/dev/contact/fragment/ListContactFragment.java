@@ -66,7 +66,6 @@ public class ListContactFragment extends Fragment implements LoadMoreListView.On
         new LoadDataTask().execute();
     }
 
-
     //  Class Load new data when listview go to end row
     private class LoadDataTask extends AsyncTask<Void, Void, Void> {
         @Override
@@ -80,22 +79,17 @@ public class ListContactFragment extends Fragment implements LoadMoreListView.On
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
             // add Loadmore Item
             createDefaultData();
-
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
-
             // We need notify the adapter that the data have been changed
             mContactAdapter.notifyDataSetChanged();
-
             // Call onLoadMoreComplete when the LoadMore task, has finished
             lvContact.onLoadMoreComplete();
-
             super.onPostExecute(result);
         }
 

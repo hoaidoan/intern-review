@@ -21,11 +21,10 @@ public class DeleteDialog extends Dialog implements View.OnClickListener {
     private int mPosition;
     private OnClickContactDialog mListener;
 
-
     public DeleteDialog(Context context) {
         super(context, R.style.CustomThemeDialog);
-    }
 
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +34,7 @@ public class DeleteDialog extends Dialog implements View.OnClickListener {
 
     }
 
-
-    private void init(){
+    private void init() {
         mMessage = (TextView) findViewById(R.id.tvMessenger);
         mBtnOK = (Button) findViewById(R.id.btnOk);
         mBtnCancel = (Button) findViewById(R.id.btnCancel);
@@ -47,6 +45,7 @@ public class DeleteDialog extends Dialog implements View.OnClickListener {
 
     /**
      * set message for dialog with Model name is bold
+     *
      * @param contactModel
      */
     public void setDialogMessage(ContactModel contactModel) {
@@ -62,11 +61,9 @@ public class DeleteDialog extends Dialog implements View.OnClickListener {
         this.mPosition = mPosition;
     }
 
-
     public void setOnClickListViewContactListener(OnClickContactDialog listener) {
         mListener = listener;
     }
-
 
     @Override
     public void onClick(View v) {
@@ -80,8 +77,6 @@ public class DeleteDialog extends Dialog implements View.OnClickListener {
         if (id == mBtnCancel.getId()) {
             mListener.onClickBtnCancel(v);
         }
-
-
     }
 
     public interface OnClickContactDialog {
