@@ -31,12 +31,17 @@ public class DeleteDialog extends Dialog implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_custom_delete);
+        init();
+
+    }
+
+
+    private void init(){
         mMessage = (TextView) findViewById(R.id.tvMessenger);
         mBtnOK = (Button) findViewById(R.id.btnOk);
         mBtnCancel = (Button) findViewById(R.id.btnCancel);
         mBtnOK.setOnClickListener(this);
         mBtnCancel.setOnClickListener(this);
-
 
     }
 
